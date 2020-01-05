@@ -1,0 +1,51 @@
+
+bd = :bd_fat
+
+live_loop :drums do
+  6.times do
+    [0,1,0,2].each.with_index do |x|
+      sample bd, amp: 2 if x == 1
+      sample :sn_dolf if x == 2
+      sleep 0.25
+    end
+  end
+  puts "end"
+  4.times do
+    density (ring, 4, 4, 8, 8).tick do
+      sample bd, amp: 2, rate: (line, 1, 2, steps: 24).tick(:a)
+      sleep 1
+    end
+  end
+end
+
+live_loop :hats do
+  6.times do
+    [1,0,1,0].each.with_index do |x|
+      sample :drum_cymbal_closed, amp: 0.5 if x == 1
+      sleep 0.25
+    end
+  end
+  puts "end"
+  4.times do
+    density (ring, 4, 4, 8, 8).tick do
+      sample :drum_cymbal_closed, rate: (line, 1, 2, steps: 24).tick(:a)
+      sleep 1
+    end
+  end
+end
+
+live_loop :notes do
+  with_fx :reverb do
+    6.times do
+      sample :bass_dnb_f, beat_stretch: 1
+      sleep 1
+    end
+  end
+  
+  4.times do |x|
+    with_fx :slicer, phase: (ring, 0.5, 0.25, 0.125, 0.125).tick do
+      sample :bass_dnb_f, beat_stretch: 1 - (0.15 * x)
+      sleep 1
+    end
+  end
+end
