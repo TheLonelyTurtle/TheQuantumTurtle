@@ -12,6 +12,7 @@ And with this, I can make rythms, melodies, and maybe more?
 
 You never know until you try!
 
+
 **About Sonic Pi**
 
 Sonic Pi is a code-based music creation software based off of Ruby.
