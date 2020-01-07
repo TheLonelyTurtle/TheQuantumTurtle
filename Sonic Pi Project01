@@ -1,0 +1,30 @@
+live_loop :bd do
+  sample bd, lpf: lpf, amp: 5, rate: (ring, 0.85, 1).tick
+  sleep 0.5
+end
+
+live_loop :notes, sync: :bd do
+  n = (scale :e3, :minor_pentatonic).shuffle
+  use_synth :fm
+  8.times do
+    play n.tick, release: 0.125, amp: 0.75
+    sleep 0.125
+  end
+end
+
+live_loop :siren, sync: :bd do
+  use_synth :blade
+  with_fx :slicer, phase: (ring, 1, 0, 0.25).tick(:a) do
+    play (chord :E3, :minor).tick, release: 8
+  end
+  sleep 8
+end
+
+live_loop :acid, sync: :bd do
+  use_synth :tb303
+  n = (scale :e2, :minor_pentatonic).shuffle
+  8.times do
+    play n.tick, cutoff: (ring, 60, 80, 100, 60, 80, 100).tick(:a), release: 0.05, amp: 0.25, sustain: 0.15, attack: 0.05
+    sleep 0.25
+  end
+end
