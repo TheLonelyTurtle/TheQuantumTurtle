@@ -4,7 +4,7 @@
 
 **About the Project**
 
-TheQuantumTurtle is using Sonic Pi to make music!
+TheLonelyTurtle is using Sonic Pi to make music!
 
 Sonic Pi is a coding platform that makes music.
 
