@@ -1,0 +1,39 @@
+#Is it more dubstep, or more trap?
+
+live_loop :drums do
+  [1,3,4,3,2,0,3,0,1,3,4,4,2,0,0,4].each.with_index do |x|
+    sample :bd_haus, cutoff: 100, amp: 4 if x == 1
+    sample :sn_dolf if x == 2
+    sample :drum_cymbal_closed if x == 3
+    if x == 4
+      density 4 do
+        sample :drum_cymbal_closed
+        sleep 0.25
+      end
+    else
+      sleep 0.25
+    end
+  end
+end
+
+live_loop :wobble, sync: :drums do
+  use_synth :saw
+  with_fx :reverb do
+    8.times do
+      with_fx :wobble, phase: (ring, 0.5, 0.125, 0.25, 0.125).tick, cutoff_max: 95, cutoff_min: 60, res: 0.8 do
+        play (ring, :E2, :Es2, :D2, :C2).tick(:a), release: 0, sustain: 1.5, attack: 0.5
+        sleep 2
+      end
+    end
+  end
+end
+
+live_loop :wobble_bass, sync: :drums do
+  use_synth :dsaw
+  2.times do
+    with_fx :wobble, phase: 0.5, cutoff_max: 60, cutoff_min: 50 do
+      play (ring, :E1, :Es1).tick, release: 0.5, attack: 0.5, sustain: 3
+      sleep 4
+    end
+  end
+end
